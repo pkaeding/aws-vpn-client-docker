@@ -52,4 +52,6 @@ COPY --from=builder /openvpn-2.4.9/src/openvpn/openvpn /openvpn
 COPY --from=builder /server /server
 COPY entrypoint.sh /
 
-ENTRYPOINT /entrypoint.sh
+COPY update-resolv-conf /etc/openvpn/scripts/
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

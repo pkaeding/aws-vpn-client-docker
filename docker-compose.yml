@@ -9,6 +9,7 @@ services:
       - "./vpn.conf:/vpn.conf:rw"
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/resolv.conf:/etc/resolv.conf:rw"
     devices:
       - "/dev/net/tun:/dev/net/tun"
     cap_add:
