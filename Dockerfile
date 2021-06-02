@@ -1,5 +1,7 @@
 FROM ubuntu:20.04 as builder
 
+ARG openvpn_version="2.5.1"
+
 WORKDIR /
 
 RUN apt-get update && \
@@ -16,13 +18,14 @@ RUN apt-get update && \
     libssl-dev \
     net-tools
 
-RUN curl -L https://github.com/OpenVPN/openvpn/archive/v2.4.9.zip -o openvpn.zip && \
-    unzip openvpn.zip
+RUN curl -L https://github.com/OpenVPN/openvpn/archive/v${openvpn_version}.zip -o openvpn.zip && \
+    unzip openvpn.zip && \
+    mv openvpn-${openvpn_version} openvpn
 
-COPY openvpn-v2.4.9-aws.patch openvpn-2.4.9
+COPY openvpn-v${openvpn_version}-aws.patch openvpn
 
-RUN cd openvpn-2.4.9 && \
-    patch -p1 < openvpn-v2.4.9-aws.patch && \
+RUN cd openvpn && \
+    patch -p1 < openvpn-v${openvpn_version}-aws.patch && \
     autoreconf -i -v -f && \
     ./configure && \
     make
@@ -48,7 +51,7 @@ RUN apt-get update && \
     openssl \
     net-tools
 
-COPY --from=builder /openvpn-2.4.9/src/openvpn/openvpn /openvpn
+COPY --from=builder /openvpn/src/openvpn/openvpn /openvpn
 COPY --from=builder /server /server
 COPY entrypoint.sh /
 
