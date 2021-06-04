@@ -33,7 +33,10 @@ up)
     R="${R}nameserver $NS
 "
   done
-  echo -n "$R" > /etc/resolv.conf
+
+  if [ "$R" ]; then
+    echo -n "$R" > /etc/resolv.conf
+  fi
   ;;
 
 down)
