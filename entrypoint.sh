@@ -78,6 +78,7 @@ echo "Open this URL in your browser and log in (ctrl + click):"
 echo ""
 echo ""
 echo $URL
+echo $URL >> /saml-url
 sleep 1
 wait_file "saml-response.txt" 60 || {
   echo "SAML Authentication timed out"

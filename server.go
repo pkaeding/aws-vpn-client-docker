@@ -27,7 +27,10 @@ func SAMLServer(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		ioutil.WriteFile("saml-response.txt", []byte(url.QueryEscape(SAMLResponse)), 0600)
-		fmt.Fprintf(w, "Got SAMLResponse field, it is now safe to close this window\n")
+
+		fmt.Fprintf(w, "<html><body>Got SAMLResponse field, it is now safe to close this window\n")
+		fmt.Fprintf(w, "<script>window.close()</script>")
+		fmt.Fprintf(w, "</body></html>")
 		log.Printf("Got SAMLResponse field and saved it to the saml-response.txt file")
 		return
 	default:
