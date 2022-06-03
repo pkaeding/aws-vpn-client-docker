@@ -6,7 +6,7 @@ services:
     network_mode: "host"
     restart: "no"
     volumes:
-      - "./vpn.conf:/vpn.conf:rw"
+      - "./${VPN_NAME}.conf:/vpn.conf:rw"
       - "./saml-url:/saml-url"
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"

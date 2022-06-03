@@ -22,3 +22,8 @@ SAML Post data to the file.
 
 1. Place AWS configuration file at the same folder of `docker-compose.yml`, naming it `vpn.conf`
 1. Execute `start.sh`. The SAML login page will open in your browser, and the tab should close when the authentication process is complete.
+
+### Connecting to multiple VPNs
+
+1. Place the AWS configuration files in the same folder as `docker-compose.yml`, with unique names (eg `company.conf`, `client-one.conf`, `client-two.conf`). Pro-tip: symlink one as `vpn.conf` to be your default VPN.
+1. Exceute `start.sh vpn-name` (eg `start.sh client-two`). If you omit the VPN name, the config named `vpn.conf` will be used (see the Pro-tip above).
